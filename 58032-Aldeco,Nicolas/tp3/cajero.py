@@ -61,6 +61,8 @@ class CajeroAutomatico():
         self.extraer_dinero(int(cambio), True)
 
     def correct_input(self, monto):
+        if monto < 0:
+            raise Exception('No es posible extraer un monto negativo')
         if monto%100 != 0:
             raise Exception('El monto solicitado no es multiplo de 100')
         if self.total_dinero < monto:
@@ -121,3 +123,7 @@ class CajeroAutomatico():
 
     def get_extra(self):
         return self.extraccion
+
+if __name__ == "__main__":
+    obj = CajeroAutomatico()
+    obj.extraer_dinero(-1500)

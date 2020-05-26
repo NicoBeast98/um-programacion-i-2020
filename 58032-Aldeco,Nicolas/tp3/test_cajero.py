@@ -194,6 +194,27 @@ class TestCajero3(unittest.TestCase):
             '$1000', '$200', '$200', '$200', '$200', '$200']
         )
 
+# Ningun billete
+class TestCajeroVacioYMontoNeg(unittest.TestCase):
+    def setUp(self):
+        self.value = CajeroAutomatico()
+
+    def test_21_vacio(self):
+        with self.assertRaises(Exception) as context:
+            self.value.extraer_dinero(1000)
+        self.assertTrue(
+            "El cajero solo tiene : 0 y usted quiere retirar : 1000"
+            in str(context.exception)
+        )
+
+    def test_22_negativo(self):
+        with self.assertRaises(Exception) as context:
+            self.value.extraer_dinero(-1000)
+        self.assertTrue(
+            "No es posible extraer un monto negativo"
+            in str(context.exception)
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
